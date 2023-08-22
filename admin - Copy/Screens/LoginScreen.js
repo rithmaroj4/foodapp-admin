@@ -24,7 +24,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
     const adminCredentials = {
       email: 'admin@gmail.com',
       password: '123',
-     
     };
 
     const handleLogin = async (values) => {
@@ -68,7 +67,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
       <View style={styles.container}>
         
       <Image href={require('./assets/logo.png')}/>
-     <View style={styles.loginContainer}>
+     
       <Text  style={styles.logo}>Hello There... </Text>
       
       <Formik
@@ -80,7 +79,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
             if (values.email === adminCredentials.email && values.password === adminCredentials.password) {
               
               navigation.navigate('Tabs');
-            
               
             } else {
               // Handle login for regular users
@@ -99,7 +97,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldError }) => (
           <View>
-           
+            {/* Your Formik form code */}
             <View style={styles.inputBox}>
               <Icon name="user" size={22} color={COLORS.primary} style={styles.inputIcon} />
               <TextInput
@@ -108,7 +106,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
                 onBlur={handleBlur('email')}
                 value={values.email}
                 placeholder="Email"
-                placeholderTextColor={COLORS.primary} 
+                placeholderTextColor={COLORS.primary} // Optional, change placeholder text color
               />
             </View>
 
@@ -123,7 +121,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
                 value={values.password}
                 placeholder="Password"
                 secureTextEntry
-                placeholderTextColor={COLORS.primary} 
+                placeholderTextColor={COLORS.primary} // Optional, change placeholder text color
               />
             </View>
 
@@ -138,7 +136,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
           </View>
         )}
       </Formik>
-      </View>
+ 
       
       </View>
     );
@@ -150,20 +148,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:COLORS.white
-
-  },
-
-  loginContainer: {
-  
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor:COLORS.white,
-    elevation:20,
-    width:800,
-    margin:100,
-    height:550
-
   },
 
   
@@ -172,7 +156,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // Change 'column' to 'row'
     alignItems: 'center',
     width:650,
-    backgroundColor:COLORS.white,
+    backgroundColor:"#FFFFFF",
     borderRadius:15,
     borderWidth:0.8,
     height:60,
@@ -202,7 +186,7 @@ const styles = StyleSheet.create({
   },
   loginBtn:{
     width:"80%",
-    backgroundColor:COLORS.primary,
+    backgroundColor:"#F07048",
     borderRadius:25,
     height:50,
     alignItems:"center",
@@ -231,7 +215,7 @@ const styles = StyleSheet.create({
 logo:{
   fontWeight:"bold",
   fontSize:50,
-  color:COLORS.primary,
+  color:"#F07048",
   marginBottom:40
 }
 });

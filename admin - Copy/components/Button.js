@@ -7,8 +7,8 @@ import COLORS from "../constants/colors";
 const SecondaryButton = ({ title, onPress = () => {} }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-      <View style={{ ...style.btnContainer, backgroundColor: COLORS.primary }}>
-        <Text style={{ ...style.title, color:COLORS.white}}>{title}</Text>
+      <View style={{ ...style.btnContainer, backgroundColor: "#F07048" }}>
+        <Text style={{ ...style.title, color: "white" }}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -16,8 +16,8 @@ const SecondaryButton = ({ title, onPress = () => {} }) => {
 const DetailButton = ({ title, onPress = () => {} }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-      <View style={{ ...style.btnContainer, backgroundColor:COLORS.white }}>
-        <Text style={{ ...style.title, color: COLORS.dark}}>{title}</Text>
+      <View style={{ ...style.btnContainer, backgroundColor: "white" }}>
+        <Text style={{ ...style.title, color: "black" }}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -25,8 +25,8 @@ const DetailButton = ({ title, onPress = () => {} }) => {
 const PrimaryButton = ({ title, onPress = () => {} }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
-      <View style={{ ...style.primaryButton, backgroundColor: COLORS.primary }}>
-        <Text style={{ ...style.title, color: COLORS.white }}>{title}</Text>
+      <View style={{ ...style.primaryButton, backgroundColor: "#F07048" }}>
+        <Text style={{ ...style.title, color: "white" }}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -79,12 +79,12 @@ const AddButton = ({ title, onPress = () => {} }) => {
 };
 
 const style = StyleSheet.create({
-  title: { color: "white", fontWeight: "bold", fontSize: 20 },
+  title: { color: "white", fontWeight: "bold", fontSize: 18 },
   btnContainer: {
     height: 60,
     marginLeft: 120,
     marginRight: 120,
-    borderRadius: 20,
+    borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
   },
