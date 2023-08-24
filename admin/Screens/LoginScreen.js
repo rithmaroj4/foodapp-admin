@@ -6,10 +6,14 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { PrimaryButton, SecondaryButton } from '../components/Button';
 import COLORS from '../constants/colors';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesome' with the appropriate icon library
+import Icon from 'react-native-vector-icons/FontAwesome'; 
+import SessionManager from '../store/SessionManager';
 
   
    const  LoginScreen = () => {
+
+
+
     const validationSchema = yup.object().shape({
       // Define validation rules for each field in your form
       email: yup.string().email('Enter a valid email').required('Email is required'),
@@ -20,6 +24,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
     const navigation = useNavigation();
   
 
+
+
     // Hardcoded admin credentials
     const adminCredentials = {
       email: 'admin@gmail.com',
@@ -27,35 +33,84 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Replace 'FontAwesom
      
     };
 
+    // const handleLogin = async (values) => {
+    //   try {
+    //     const usersCollection = firebase.firestore().collection('Staff');
+    //     const querySnapshot = await usersCollection.where('email', '==', values.email).get();
+    //     if (querySnapshot.empty) {
+    //       throw new yup.ValidationError('User not found. Please check your email.', null, 'email');
+    //     } else {
+    //       let foundUser = false;
+    //       querySnapshot.forEach((doc) => {
+    //         const user = doc.data();
+    //         if (user.password === values.password) {
+    //           foundUser = true;
+    //           // Login successful,
+    //           if(doc.data().userLevel ==='Admin')
+    //           {
+    //             navigation.navigate('Tabs');
+    //           }
+    //           else
+    //           {
+    //             navigation.navigate('LiveOrders');
+    //           }
+                
+              
+    //         }
+    //       });
+    
+    //       if (!foundUser) {
+    //         throw new yup.ValidationError('Invalid password. Please try again.', null, 'password');
+    //       }
+    //     }
+    //   } catch (error) {
+    //     throw error;
+    //   }
+    // };
+    
+
     const handleLogin = async (values) => {
       try {
         const usersCollection = firebase.firestore().collection('Staff');
         const querySnapshot = await usersCollection.where('email', '==', values.email).get();
+    
         if (querySnapshot.empty) {
           throw new yup.ValidationError('User not found. Please check your email.', null, 'email');
-        } else {
-          let foundUser = false;
-          querySnapshot.forEach((doc) => {
-            const user = doc.data();
-            if (user.password === values.password) {
-              foundUser = true;
-              // Login successful,
-              if(doc.data().userLevel ==='Admin')
-              {
-                navigation.navigate('Tabs');
-              }
-              else
-              {
-                navigation.navigate('LiveOrders');
-              }
-                
-              
-            }
-          });
+        }
     
-          if (!foundUser) {
-            throw new yup.ValidationError('Invalid password. Please try again.', null, 'password');
+        let foundUser = false;
+    
+        for (const doc of querySnapshot.docs) {
+          const user = doc.data();
+    
+          if (user.password === values.password) {
+            foundUser = true;
+            // Login successful
+    
+            const userData = {
+              email: values.email,
+              userLevel: doc.data().userLevel,
+            
+             
+            };
+    
+            // Store the session
+            await SessionManager.login(userData);
+    
+            // Navigate to the appropriate screen
+            if (doc.data().userLevel === 'staff') {
+              navigation.navigate('LiveOrders');
+            } else {
+              navigation.navigate('Tabs');
+            }
+    
+            // Exit the loop since we've found the user
+            break;
           }
+        }
+    
+        if (!foundUser) {
+          throw new yup.ValidationError('Invalid password. Please try again.', null, 'password');
         }
       } catch (error) {
         throw error;

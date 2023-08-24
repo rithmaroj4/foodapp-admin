@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import COLORS from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 
+
 const LiveOrderCard = ({ orders , onDelete }) => {
   const {
     orderID,
@@ -70,12 +71,15 @@ const LiveOrderCard = ({ orders , onDelete }) => {
         <Text style={styles.totalPrice}>Total Price: Rs {totalPrice}</Text>
 
         <View style={styles.deleteButtonContainer}>
+          
           <TouchableOpacity
             onPress={onDelete} // Call the onDelete function passed as prop
             style={styles.deleteButton}
           >
-            <Ionicons name="trash-outline" size={24} color={COLORS.primary} />
+            <Ionicons name="checkmark-done-circle" size={24} color={COLORS.primary} />
+            <Text style={{fontWeight:"bold",color:COLORS.primary}}>Complete</Text>
           </TouchableOpacity>
+         
         </View>
 
 
@@ -146,8 +150,17 @@ const styles = StyleSheet.create({
   },
   deleteButtonContainer: {
     alignItems: "flex-end",
+    
+  
   },
   deleteButton: {
-    padding: 8,
+    padding: 5,
+    borderWidth:2,
+    borderColor:COLORS.primary,
+    flexDirection:"row",
+    marginTop:10,
+    alignItems:"center",
+    borderRadius:5,
+    paddingHorizontal:8
   },
 });

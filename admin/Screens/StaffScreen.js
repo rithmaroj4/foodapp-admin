@@ -24,6 +24,7 @@ const Staff = () => {
   const [isEditModal, setIsEditModal] = useState(false);
   const [initialStaff, setInitialStaff] = useState(null); // Use initialStaff instead of initialCategory
   const [isRemoveUserModal, setIsRemoveUserModal] = useState(false);
+  const [selectedStaffId, setSelectedStaffId] = useState(null);
 
   const staffRef = firebase.firestore().collection("Staff");
 
@@ -47,9 +48,9 @@ const Staff = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const removeStaffMember = (staffId) => {
+  const removeStaffMember = (id) => {
     staffRef
-      .doc(staffId)
+      .doc(id)
       .delete()
       .then(() => {
         setIsRemoveUserModal(false);
@@ -62,8 +63,9 @@ const Staff = () => {
       });
   };
 
-  const confirmModal = () => {
+  const confirmModal = (id) => {
     setIsRemoveUserModal(true);
+    setSelectedStaffId(id); 
   };
 
   return (
@@ -89,7 +91,7 @@ const Staff = () => {
             <Text style={[styles.cell, styles.headerCell]}>Staff Name</Text>
             <Text style={[styles.cell, styles.headerCell]}>Email</Text>
             <Text style={[styles.headerCell]}>Action</Text>
-            {/* Other header cells */}
+           
           </View>
           {staff.map((item) => (
             <View style={styles.row} key={item.id}>
@@ -124,7 +126,7 @@ const Staff = () => {
                 <View style={styles.seperator2}></View>
                 <TouchableOpacity
                   style={styles.changeButton}
-                  onPress={confirmModal}
+                  onPress={() => confirmModal(item.id)} 
                 >
                   <Icon
                     name="account-remove"
@@ -149,7 +151,7 @@ const Staff = () => {
                   message="Are you sure you want to remove the user?"
                   onClose={() => setIsRemoveUserModal(false)}
                   onConfirm={() => {
-                    removeStaffMember(item.id); // Pass the staff ID as an argument
+                    removeStaffMember(item.id); 
                   }}
                 />
               </View>
@@ -163,11 +165,11 @@ const Staff = () => {
         onClose={() => {
           setModalVisible(false);
           setIsEditModal(false);
-          setInitialStaff(null); // Reset initialStaff
+          setInitialStaff(null); 
         }}
-        onAddStaff={fetchStaff} // Use onAddStaff instead of onAddCategory
+        onAddStaff={fetchStaff}
         isEditMode={isEditModal}
-        initialStaff={initialStaff} // Use initialStaff instead of initialCategory
+        initialStaff={initialStaff} 
       />
     </SafeAreaView>
   );

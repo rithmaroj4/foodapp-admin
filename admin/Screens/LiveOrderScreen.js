@@ -62,15 +62,15 @@ const LiveOrderScreen = () => {
   const handleOrderDelete = (orderId, OId) => {
     // Confirm with the user before deleting
     Alert.alert(
-      "Confirm Delete",
-      "Are you sure you want to delete this order?",
+      "Complete Order",
+      "Are you sure you want to complete this order?",
       [
         {
           text: "Cancel",
           style: "cancel",
         },
         {
-          text: "Delete",
+          text: "Complete",
           onPress: () => {
 
             handleUpdateOrderStatus(OId);
@@ -94,15 +94,13 @@ const LiveOrderScreen = () => {
     );
   };
 
-  const handleCountdownFinish = () => {
-    //navigation.navigate('Intro');
-    const resetAction = CommonActions.reset({
-      index: 0, // index of the screen to navigate to
-      routes: [{ name: "Login" }], // name of the first screen
+  const handleLogout = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
     });
-
-    navigation.dispatch(resetAction);
   };
+  
 
   return (
 
@@ -125,7 +123,7 @@ const LiveOrderScreen = () => {
        
         <TouchableOpacity
        
-       onPress={()=> navigation.navigate("Login") }
+       onPress={()=> navigation.navigate("LOGOUT") }
      
       >
       <FontAwesome5 name="sign-out-alt" color={COLORS.primary} size={28} />
